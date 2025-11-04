@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Behavioral Targeting = Follows People</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #262b32;
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .title {
+            text-align: center;
+            padding: 40px 0 60px;
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-transform: lowercase;
+            letter-spacing: -0.02em;
+            font-style: italic;
+        }
+        
+        .equals {
+            color: #fc5185;
+            margin: 0 20px;
+            font-style: normal;
+        }
+        
+        .visual-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 20px;
+        }
+        
+        .user-profile {
+            position: relative;
+            background: linear-gradient(135deg, rgba(252, 81, 133, 0.15) 0%, rgba(252, 81, 133, 0.05) 100%);
+            border: 3px solid #fc5185;
+            border-radius: 30px;
+            padding: 40px;
+            min-width: 350px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .profile-icon {
+            text-align: center;
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .profile-data {
+            space-y: 15px;
+        }
+        
+        .data-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1rem;
+            background: rgba(252, 81, 133, 0.1);
+            padding: 12px 15px;
+            border-radius: 15px;
+            border-left: 4px solid #fc5185;
+        }
+        
+        .data-icon {
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+        
+        .arrow {
+            position: absolute;
+            color: #fc5185;
+            font-size: 3rem;
+            animation: float 2s ease-in-out infinite;
+        }
+        
+        .arrow1 {
+            top: 20%;
+            right: -80px;
+            transform: rotate(15deg);
+            animation-delay: 0s;
+        }
+        
+        .arrow2 {
+            top: 50%;
+            right: -80px;
+            transform: rotate(0deg);
+            animation-delay: 0.5s;
+        }
+        
+        .arrow3 {
+            top: 80%;
+            right: -80px;
+            transform: rotate(-15deg);
+            animation-delay: 1s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateX(0) rotate(var(--rotation, 0deg)); }
+            50% { transform: translateX(10px) rotate(var(--rotation, 0deg)); }
+        }
+        
+        .ad-banner {
+            position: absolute;
+            right: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(45deg, #333, #444);
+            border: 2px solid #fc5185;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            min-width: 200px;
+            box-shadow: 0 10px 30px rgba(252, 81, 133, 0.3);
+        }
+        
+        .ad-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fc5185;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        .ad-content {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            color: #ccc;
+            line-height: 1.4;
+        }
+        
+        .overlay {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            background: rgba(0,0,0,0.9);
+            padding: 20px 40px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 2px solid #fc5185;
+        }
+        
+        .overlay-text {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: white;
+            font-family: 'Roboto Mono', monospace;
+        }
+        
+        .highlight {
+            color: #fc5185;
+        }
+        
+        @media (max-width: 1200px) {
+            .visual-container {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .arrow {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: rotate(90deg) !important;
+                margin: 20px 0;
+            }
+            
+            .ad-banner {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .title { font-size: 2.5rem; padding: 30px 0 40px; }
+            .user-profile { min-width: 300px; padding: 30px; }
+            .data-item { font-size: 0.9rem; }
+            .overlay-text { font-size: 1.4rem; }
+        }
+        
+        .pulse {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(252, 81, 133, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(252, 81, 133, 0.6); }
+        }
+    </style>
+</head>
+<body>
+    <div class="title">
+        behavioral targeting <span class="equals">=</span> follows people
+    </div>
+    
+    <div class="visual-container">
+        <div class="user-profile pulse">
+            <div class="profile-icon">👤</div>
+            <div class="profile-data">
+                <div class="data-item">
+                    <span class="data-icon">❤️</span>
+                    <span>interests: fitness, tech, travel</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-icon">🌐</span>
+                    <span>browsing: nike.com, apple.com</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-icon">📊</span>
+                    <span>retargeting pixel: active</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="arrow arrow1" style="--rotation: 15deg;">➤</div>
+        <div class="arrow arrow2" style="--rotation: 0deg;">➤</div>
+        <div class="arrow arrow3" style="--rotation: -15deg;">➤</div>
+        
+        <div class="ad-banner">
+            <div class="ad-title">Ad Served</div>
+            <div class="ad-content">
+                Targeted banner<br>
+                based on your<br>
+                profile data
+            </div>
+        </div>
+    </div>
+    
+    <div class="overlay">
+        <div class="overlay-text">
+            uses <span class="highlight">cookies + ids</span> → privacy issues
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Targeting Comparison Chart</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .slide {
+            width: 1920px;
+            height: 1080px;
+            background: rgba(38, 43, 50, 1);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #f3f3f3;
+            text-align: center;
+            margin-bottom: 60px;
+            letter-spacing: -0.02em;
+        }
+        
+        .comparison-container {
+            display: flex;
+            gap: 60px;
+            width: 100%;
+            max-width: 1600px;
+            height: 700px;
+        }
+        
+        .targeting-column {
+            flex: 1;
+            background: rgba(45, 52, 60, 0.8);
+            border-radius: 24px;
+            padding: 50px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .behavioral {
+            border-top: 6px solid #fc5185;
+            height: 45rem;
+        }
+        
+        .contextual {
+            border-top: 6px solid rgb(63, 193, 201);
+            height: 45rem;
+        }
+        
+        .column-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .column-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .column-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #f3f3f3;
+            margin-bottom: 10px;
+        }
+        
+        .column-subtitle {
+            font-size: 1.1rem;
+            color: #a0a0a0;
+            font-weight: 400;
+        }
+        
+        .pros-cons-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .pros-section, .cons-section {
+            flex: 1;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .section-icon {
+            font-size: 1.5rem;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #f3f3f3;
+        }
+        
+        .pros-title {
+            color: #4ade80;
+        }
+        
+        .cons-title {
+            color: #f87171;
+        }
+        
+        .points-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .point-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 1rem;
+            line-height: 1.4;
+            color: #e5e5e5;
+        }
+        
+        .point-bullet {
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        
+        .pros .point-bullet {
+            color: #4ade80;
+        }
+        
+        .cons .point-bullet {
+            color: #f87171;
+        }
+        
+        /* Status indicators */
+        .status-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .behavioral .status-badge {
+            background: rgba(252, 81, 133, 0.2);
+            color: #fc5185;
+            border: 1px solid rgba(252, 81, 133, 0.3);
+        }
+        
+        .contextual .status-badge {
+            background: rgba(63, 193, 201, 0.2);
+            color: rgb(63, 193, 201);
+            border: 1px solid rgba(63, 193, 201, 0.3);
+        }
+        
+        .vs-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: rgba(45, 52, 60, 0.9);
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #f3f3f3;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Subtle background pattern */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 20%, rgba(252, 81, 133, 0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(63, 193, 201, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1600px) {
+            .slide {
+                width: 100vw;
+                height: 100vh;
+                padding: 60px;
+            }
+            
+            .chart-title {
+                font-size: 2.5rem;
+                margin-bottom: 40px;
+            }
+            
+            .comparison-container {
+                gap: 40px;
+                height: 600px;
+            }
+            
+            .targeting-column {
+                padding: 40px;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .comparison-container {
+                flex-direction: column;
+                height: auto;
+                gap: 30px;
+            }
+            
+            .vs-divider {
+                position: relative;
+                left: auto;
+                top: auto;
+                transform: none;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <h1 class="chart-title">Targeting Strategy Comparison</h1>
+        
+        <div class="comparison-container">
+            <div class="targeting-column behavioral">
+                <div class="status-badge">Legacy</div>
+                <div class="column-header">
+                    <div class="column-icon">👥</div>
+                    <h2 class="column-title">Behavioral Targeting</h2>
+                    <p class="column-subtitle">Based on user data & cookies</p>
+                </div>
+                
+                <div class="pros-cons-container">
+                    <div class="pros-section pros">
+                        <div class="section-header">
+                            <span class="section-icon">✅</span>
+                            <h3 class="section-title pros-title">Pros</h3>
+                        </div>
+                        <ul class="points-list">
+                            <li class="point-item">
+                                <span class="point-bullet">●</span>
+                                <span>High personalization potential</span>
+                            </li>
+                            <li class="point-item">
+                                <span class="point-bullet">●</span>
+                                <span>Historical performance data</span>
+                            </li>
+                            <li class="point-item">
+                                <span class="point-bullet">●</span>
+                                <span>Cross-site tracking capabilities</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="cons-section cons">
+                        <div class="section-header">
+                            <span class="section-icon">❌</span>
+                            <h3 class="section-title cons-title">Cons</h3>
+                        </div>
+                        <ul class="points-list">
+                            <li class="point-item">
+                                <span class="point-bullet">●</span>
+                                <span>Privacy regulations (GDPR, CCPA)</span>
+                            </li>
+                            <li class="point-item">
+                                <span class="point-bullet">●</span>
+                                <span>Cookie deprecation by 2025</span>
+                            </li>
+                            <li class="point-item">
+                                <span class="point-bullet">●</span>
+                                <span>Brand safety risks</span>
+                            </li>
+                            <li class="point-item">
+                                <span class="point-bullet">●</span>
+                                <span>Consumer trust concerns</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="vs-divider">VS</div>
+            
+            <div class="targeting-column contextual">
+                <div class="status-badge">Future</div>
+                <div class="column-header">
+                    <div class="column-icon">🎯</div>
+                    <h2 class="column-title">Contextual Targeting</h2>
+                    <p class="column-subtitle">Based on content & moment</p>
+                </div>
+                
+                <div class="pros-cons-container">
+                    <div class="pros-section pros">
+                        <div class="section-header">
+                            <span class="section-icon">✅</span>
+                            <h3 class="section-title pros-title">Pros</h3>
+                        </div>
+                        <ul class="points-list">
+                            <li class="point-item">
+                                <span class="point-bullet">●</span>
+                                <span>Privacy-compliant by design</span>
+                            </li>
+                            <li class="point-item">
+                                <span class="point-bullet">●</span>
+                                <span>Cookie-free operation</span>
+                            </li>
+                            <li class="point-item">
+                                <span class="point-bullet">●</span>
+                                <span>Brand safety guaranteed</span>
+                            </li>
+                            <li class="point-item">
+                                <span class="point-bullet">●</span>
+                                <span>Real-time relevance</span>
+                            </li>
+                            <li class="point-item">
+                                <span class="point-bullet">●</span>
+                                <span>Future-proof strategy</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="cons-section cons">
+                        <div class="section-header">
+                            <span class="section-icon">❌</span>
+                            <h3 class="section-title cons-title">Cons</h3>
+                        </div>
+                        <ul class="points-list">
+                            <li class="point-item">
+                                <span class="point-bullet">●</span>
+                                <span>Less historical user data</span>
+                            </li>
+                            <li class="point-item">
+                                <span class="point-bullet">●</span>
+                                <span>Requires advanced AI/ML</span>
+                            </li>
+                            <li class="point-item">
+                                <span class="point-bullet">●</span>
+                                <span>Learning curve for teams</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

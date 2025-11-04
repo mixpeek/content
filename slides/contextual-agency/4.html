@@ -1,0 +1,334 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROI Lift Case Study</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .slide {
+            width: 1920px;
+            height: 1080px;
+            background: rgba(38, 43, 50, 1);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .case-study-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .case-study-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #f3f3f3;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+        
+        .case-study-subtitle {
+            font-size: 1.4rem;
+            color: #a0a0a0;
+            font-weight: 400;
+        }
+        
+        .chart-container {
+            background: rgba(45, 52, 60, 0.8);
+            border-radius: 24px;
+            padding: 60px;
+            width: 100%;
+            max-width: 1400px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .chart-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #f3f3f3;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .bars-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 400px;
+            margin-bottom: 40px;
+            padding: 0 40px;
+        }
+        
+        .bar-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 200px;
+        }
+        
+        .bar {
+            width: 120px;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 20px;
+            position: relative;
+            transition: all 0.8s ease-in-out;
+            animation: growUp 1.5s ease-out;
+        }
+        
+        @keyframes growUp {
+            from { height: 0; }
+            to { height: var(--bar-height); }
+        }
+        
+        .bar-standard {
+            background: linear-gradient(180deg, #fc5185 0%, #e63564 100%);
+            height: 180px;
+            --bar-height: 180px;
+        }
+        
+        .bar-contextual {
+            background: linear-gradient(180deg, rgb(63, 193, 201) 0%, rgb(45, 173, 181) 100%);
+            height: 320px;
+            --bar-height: 320px;
+        }
+        
+        .bar-value {
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(38, 43, 50, 0.9);
+            color: #f3f3f3;
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .bar-label {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #f3f3f3;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .bar-description {
+            font-size: 1rem;
+            color: #a0a0a0;
+            text-align: center;
+            line-height: 1.4;
+        }
+        
+        .improvement-callout {
+            position: absolute;
+            top: 50px;
+            right: 28rem;
+            background: rgba(63, 193, 201, 0.15);
+            border: 2px solid rgb(63, 193, 201);
+            border-radius: 16px;
+            padding: 20px 30px;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .improvement-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: rgb(63, 193, 201);
+            margin-bottom: 5px;
+        }
+        
+        .improvement-label {
+            font-size: 1rem;
+            color: #f3f3f3;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .key-insights {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .insight-box {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .insight-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .insight-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #f3f3f3;
+            margin-bottom: 5px;
+        }
+        
+        .insight-label {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Company logo placeholder */
+        .client-info {
+            position: absolute;
+            bottom: 20px;
+            left: 30px;
+            font-size: 0.9rem;
+            color: #808080;
+        }
+        
+        /* Subtle background pattern */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 20%, rgba(252, 81, 133, 0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(63, 193, 201, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1600px) {
+            .slide {
+                width: 100vw;
+                height: 100vh;
+                padding: 60px;
+            }
+            
+            .case-study-title {
+                font-size: 2.5rem;
+            }
+            
+            .bars-container {
+                height: 350px;
+            }
+            
+            .bar-standard {
+                height: 150px;
+                --bar-height: 150px;
+            }
+            
+            .bar-contextual {
+                height: 270px;
+                --bar-height: 270px;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .key-insights {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .improvement-callout {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin: 20px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="case-study-header">
+            <h1 class="case-study-title">📊 Case Study: Fortune 500 Retailer</h1>
+            <p class="case-study-subtitle">3-month campaign performance comparison</p>
+        </div>
+        
+        <div class="chart-container">
+            <h2 class="chart-title"></h2>
+            
+            <div class="improvement-callout">
+                <div class="improvement-value">+78%</div>
+                <div class="improvement-label">ROI Improvement</div>
+            </div>
+            
+            <div class="bars-container">
+                <div class="bar-group">
+                    <div class="bar bar-standard">
+                        <div class="bar-value">2.4x</div>
+                    </div>
+                    <div class="bar-label">Standard Targeting</div>
+                    <div class="bar-description">Demographic + behavioral data</div>
+                </div>
+                
+                <div class="bar-group">
+                    <div class="bar bar-contextual">
+                        <div class="bar-value">4.3x</div>
+                    </div>
+                    <div class="bar-label">Contextual Targeting</div>
+                    <div class="bar-description">Content alignment + moment relevance</div>
+                </div>
+            </div>
+            
+            <div class="key-insights">
+                <div class="insight-box">
+                    <div class="insight-icon">📈</div>
+                    <div class="insight-value">127%</div>
+                    <div class="insight-label">CTR Increase</div>
+                </div>
+                
+                <div class="insight-box">
+                    <div class="insight-icon">🎯</div>
+                    <div class="insight-value">89%</div>
+                    <div class="insight-label">Brand Relevance</div>
+                </div>
+                
+                <div class="insight-box">
+                    <div class="insight-icon">💰</div>
+                    <div class="insight-value">-34%</div>
+                    <div class="insight-label">Cost Per Acquisition</div>
+                </div>
+                
+                <div class="insight-box">
+                    <div class="insight-icon">🔒</div>
+                    <div class="insight-value">100%</div>
+                    <div class="insight-label">Brand Safety</div>
+                </div>
+            </div>
+            
+            <div class="client-info">
+                *Data from Q3 2024 campaign | Client name anonymized
+            </div>
+        </div>
+    </div>
+
+</body></html>

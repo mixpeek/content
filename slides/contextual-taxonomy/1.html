@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Needs Taxonomies</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #262b32;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #f3f3f3;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            min-height: 800px;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 5vh 5vw;
+            box-sizing: border-box;
+        }
+
+        .title {
+            text-align: center;
+            font-size: clamp(48px, 8vw, 84px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: clamp(60px, 10vh, 120px);
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .title .ai {
+            color: #fc5185;
+        }
+
+        .title .taxonomies {
+            color: rgb(63,193,201);
+        }
+
+        .visual-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: clamp(60px, 10vh, 120px);
+            width: 100%;
+        }
+
+        .neural-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(60px, 10vw, 120px);
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .chaos-side {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .messy-icons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(15px, 2vw, 20px);
+            transform: rotate(-5deg);
+            opacity: 0.7;
+            max-width: clamp(200px, 25vw, 300px);
+            justify-content: center;
+        }
+
+        .messy-icons .icon {
+            font-size: clamp(32px, 4vw, 48px);
+            animation: float 3s ease-in-out infinite;
+            filter: blur(1px);
+        }
+
+        .messy-icons .icon:nth-child(1) { color: #fc5185; animation-delay: 0s; }
+        .messy-icons .icon:nth-child(2) { color: #fc5185; animation-delay: 0.5s; }
+        .messy-icons .icon:nth-child(3) { color: #fc5185; animation-delay: 1s; }
+        .messy-icons .icon:nth-child(4) { color: #fc5185; animation-delay: 1.5s; }
+        .messy-icons .icon:nth-child(5) { color: #fc5185; animation-delay: 2s; }
+        .messy-icons .icon:nth-child(6) { color: #fc5185; animation-delay: 2.5s; }
+
+        .vs-arrow {
+            font-size: clamp(48px, 7vw, 72px);
+            color: #f3f3f3;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        .structure-side {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .structured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: clamp(15px, 2.5vw, 25px);
+            transform: rotate(0deg);
+            max-width: clamp(250px, 30vw, 350px);
+        }
+
+        .category-box {
+            background: rgba(63,193,201, 0.15);
+            border: 3px solid rgb(63,193,201);
+            border-radius: clamp(16px, 2vw, 24px);
+            padding: clamp(15px, 2vw, 20px);
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(63,193,201, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .category-box .icon {
+            font-size: clamp(24px, 3.5vw, 36px);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .category-box .label {
+            font-size: clamp(12px, 1.5vw, 16px);
+            font-weight: 600;
+            color: rgb(63,193,201);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .neural-bolt {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: clamp(64px, 9vw, 96px);
+            color: #f3f3f3;
+            z-index: 5;
+            text-shadow: 0 0 30px rgba(243,243,243, 0.5);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .overlay-caption {
+            text-align: center;
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            background: linear-gradient(45deg, #fc5185, rgb(63,193,201));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        .noise-label {
+            position: absolute;
+            top: clamp(-35px, -4vh, -40px);
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fc5185;
+            font-size: clamp(18px, 2.2vw, 24px);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .structure-label {
+            position: absolute;
+            top: clamp(-35px, -4vh, -40px);
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgb(63,193,201);
+            font-size: clamp(18px, 2.2vw, 24px);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <span class="ai">AI</span> needs<br>
+            <span class="taxonomies">taxonomies</span><br>
+            to work
+        </div>
+
+        <div class="visual-section">
+            <div class="neural-container">
+                <div class="chaos-side">
+                    <div class="noise-label">noise</div>
+                    <div class="messy-icons">
+                        <span class="icon">📝</span>
+                        <span class="icon">🎬</span>
+                        <span class="icon">🎧</span>
+                        <span class="icon">📱</span>
+                        <span class="icon">💻</span>
+                        <span class="icon">📊</span>
+                    </div>
+                </div>
+
+                <div class="vs-arrow">→</div>
+
+                <div class="structure-side">
+                    <div class="structure-label">structure</div>
+                    <div class="structured-grid">
+                        <div class="category-box">
+                            <span class="icon">📝</span>
+                            <div class="label">text</div>
+                        </div>
+                        <div class="category-box">
+                            <span class="icon">🎬</span>
+                            <div class="label">video</div>
+                        </div>
+                        <div class="category-box">
+                            <span class="icon">🎧</span>
+                            <div class="label">audio</div>
+                        </div>
+                        <div class="category-box">
+                            <span class="icon">👤</span>
+                            <div class="label">user</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="neural-bolt">⚡</div>
+            </div>
+        </div>
+
+        <div class="overlay-caption">
+            from noise to intelligence
+        </div>
+    </div>
+</body>
+</html>

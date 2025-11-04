@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contextual vs Behavioral Targeting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #262b32;
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .title {
+            text-align: center;
+            padding: 40px 0 20px;
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-transform: lowercase;
+            letter-spacing: -0.02em;
+            font-style: italic;
+        }
+        
+        .vs {
+            color: #888;
+            margin: 0 20px;
+            font-style: normal;
+        }
+        
+        .split-container {
+            flex: 1;
+            display: flex;
+            position: relative;
+        }
+        
+        .split {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .split:hover {
+            transform: scale(1.02);
+        }
+        
+        .behavioral {
+            background: linear-gradient(135deg, rgba(252, 81, 133, 0.1) 0%, rgba(252, 81, 133, 0.05) 100%);
+            border-right: 2px solid rgba(252, 81, 133, 0.3);
+        }
+        
+        .contextual {
+            background: linear-gradient(135deg, rgba(63, 193, 201, 0.1) 0%, rgba(63, 193, 201, 0.05) 100%);
+        }
+        
+        .icon {
+            font-size: 8rem;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        }
+        
+        .label {
+            font-size: 3rem;
+            font-weight: 800;
+            text-transform: lowercase;
+            letter-spacing: -0.01em;
+            margin-bottom: 20px;
+        }
+        
+        .behavioral .label {
+            color: #fc5185;
+        }
+        
+        .contextual .label {
+            color: rgb(63,193,201);
+        }
+        
+        .description {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.1rem;
+            text-align: center;
+            max-width: 300px;
+            line-height: 1.6;
+            color: #aaa;
+            font-weight: 400;
+        }
+        
+        .overlay {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            background: rgba(0,0,0,0.8);
+            padding: 20px 40px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .overlay-text {
+            font-size: 2rem;
+            font-weight: 600;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .pointer {
+            font-size: 2.2rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .accent-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px;
+            height: 100px;
+            background: linear-gradient(to bottom, #fc5185, rgb(63,193,201));
+            border-radius: 2px;
+            z-index: 10;
+        }
+        
+        @media (max-width: 768px) {
+            .title { font-size: 2.5rem; }
+            .label { font-size: 2rem; }
+            .icon { font-size: 5rem; }
+            .overlay-text { font-size: 1.5rem; }
+            .split-container { flex-direction: column; }
+            .behavioral { border-right: none; border-bottom: 2px solid rgba(252, 81, 133, 0.3); }
+            .accent-line { width: 100px; height: 4px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="title">
+        contextual <span class="vs">vs.</span> behavioral targeting
+    </div>
+    
+    <div class="split-container">
+        <div class="accent-line"></div>
+        
+        <div class="split behavioral">
+            <div class="icon">👤</div>
+            <div class="label">behavioral</div>
+            <div class="description">
+                tracks user actions<br>
+                builds profiles<br>
+                follows behavior patterns
+            </div>
+        </div>
+        
+        <div class="split contextual">
+            <div class="icon">📄</div>
+            <div class="label">contextual</div>
+            <div class="description">
+                analyzes content<br>
+                matches context<br>
+                privacy-first approach
+            </div>
+        </div>
+    </div>
+    
+    <div class="overlay">
+        <div class="overlay-text">
+            <span class="pointer">👉</span>
+            which one wins rfps?
+        </div>
+    </div>
+</body>
+</html>

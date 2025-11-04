@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contextual Strategy Checklist</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .slide {
+            width: 1920px;
+            height: 1080px;
+            background: rgba(38, 43, 50, 1);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .checklist-container {
+            background: rgba(45, 52, 60, 0.8);
+            border-radius: 24px;
+            padding: 80px 60px;
+            width: 100%;
+            max-width: 1200px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .checklist-header {
+            text-align: center;
+            margin-bottom: 60px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 40px;
+        }
+        
+        .checklist-title {
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: #f3f3f3;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+        
+        .checklist-subtitle {
+            font-size: 1.4rem;
+            color: #a0a0a0;
+            font-weight: 400;
+        }
+        
+        .checklist-items {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .checklist-item:nth-child(1) { animation-delay: 0.2s; }
+        .checklist-item:nth-child(2) { animation-delay: 0.4s; }
+        .checklist-item:nth-child(3) { animation-delay: 0.6s; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .checklist-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(10px);
+        }
+        
+        .check-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(74, 222, 128, 0.3);
+            animation: checkPop 0.5s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .checklist-item:nth-child(1) .check-icon { animation-delay: 0.4s; }
+        .checklist-item:nth-child(2) .check-icon { animation-delay: 0.6s; }
+        .checklist-item:nth-child(3) .check-icon { animation-delay: 0.8s; }
+        
+        @keyframes checkPop {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            80% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .item-content {
+            flex: 1;
+        }
+        
+        .item-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #f3f3f3;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        
+        .item-description {
+            font-size: 1.3rem;
+            color: #a0a0a0;
+            line-height: 1.4;
+            font-weight: 400;
+        }
+        
+        .item-accent {
+            width: 6px;
+            height: 80px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+        
+        .checklist-item:nth-child(1) .item-accent {
+            background: linear-gradient(180deg, #fc5185 0%, #e63564 100%);
+        }
+        
+        .checklist-item:nth-child(2) .item-accent {
+            background: linear-gradient(180deg, rgb(63, 193, 201) 0%, rgb(45, 173, 181) 100%);
+        }
+        
+        .checklist-item:nth-child(3) .item-accent {
+            background: linear-gradient(180deg, #a855f7 0%, #9333ea 100%);
+        }
+        
+        .completion-badge {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 20px rgba(74, 222, 128, 0.4);
+            animation: completionBadge 1s ease-out 1.2s both;
+        }
+        
+        @keyframes completionBadge {
+            from {
+                transform: scale(0) rotate(-10deg);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+        
+        /* Subtle background pattern */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 20%, rgba(252, 81, 133, 0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(63, 193, 201, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1600px) {
+            .slide {
+                width: 100vw;
+                height: 100vh;
+                padding: 60px;
+            }
+            
+            .checklist-title {
+                font-size: 2.5rem;
+            }
+            
+            .checklist-container {
+                padding: 60px 50px;
+            }
+            
+            .checklist-items {
+                gap: 30px;
+            }
+            
+            .checklist-item {
+                padding: 30px;
+            }
+            
+            .item-title {
+                font-size: 1.6rem;
+            }
+            
+            .item-description {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .checklist-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .item-accent {
+                width: 100%;
+                height: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="checklist-container">
+            <div class="completion-badge">✓ Complete</div>
+            
+            <div class="checklist-header">
+                <h1 class="checklist-title">Contextual Strategy Section</h1>
+                <p class="checklist-subtitle">Essential elements for your RFP response</p>
+            </div>
+            
+            <div class="checklist-items">
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <div class="item-content">
+                        <h3 class="item-title">Contextual Relevance Metrics</h3>
+                        <p class="item-description">Demonstrate how ads align with content and user moments for maximum engagement</p>
+                    </div>
+                    <div class="item-accent"></div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <div class="item-content">
+                        <h3 class="item-title">Brand Safety & Suitability</h3>
+                        <p class="item-description">Guarantee ad placements avoid risky content while maintaining brand integrity</p>
+                    </div>
+                    <div class="item-accent"></div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <div class="item-content">
+                        <h3 class="item-title">Future-Proof Strategy</h3>
+                        <p class="item-description">Cookie-free approach that works without personal IDs or third-party data</p>
+                    </div>
+                    <div class="item-accent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

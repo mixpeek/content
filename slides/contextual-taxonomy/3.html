@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IAB Taxonomy = Common Language</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #262b32;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #f3f3f3;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            min-height: 800px;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 5vh 5vw;
+            box-sizing: border-box;
+        }
+
+        .title {
+            text-align: center;
+            font-size: clamp(48px, 8vw, 84px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: clamp(60px, 10vh, 120px);
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .title .iab {
+            color: rgb(63,193,201);
+        }
+
+        .title .taxonomy {
+            color: rgb(63,193,201);
+        }
+
+        .title .equals {
+            color: #f3f3f3;
+        }
+
+        .title .common {
+            color: #fc5185;
+        }
+
+        .title .language {
+            color: #fc5185;
+        }
+
+        .visual-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: clamp(60px, 10vh, 120px);
+            width: 100%;
+        }
+
+        .diagram-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(40px, 6vw, 80px);
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .ai-pipeline {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(20px, 3vh, 30px);
+        }
+
+        .ai-box {
+            background: linear-gradient(135deg, rgba(252, 81, 133, 0.2), rgba(252, 81, 133, 0.1));
+            border: 3px solid #fc5185;
+            border-radius: clamp(20px, 2.5vw, 28px);
+            padding: clamp(20px, 3vw, 30px);
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(252, 81, 133, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .ai-box .label {
+            font-size: clamp(18px, 2.5vw, 24px);
+            font-weight: 800;
+            color: #fc5185;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .ai-box .icon {
+            font-size: clamp(40px, 5vw, 56px);
+            color: #f3f3f3;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .data-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(8px, 1vh, 12px);
+        }
+
+        .data-item {
+            background: rgba(252, 81, 133, 0.1);
+            border: 2px solid #fc5185;
+            border-radius: 12px;
+            padding: clamp(8px, 1vw, 12px) clamp(12px, 1.5vw, 16px);
+            font-size: clamp(10px, 1.2vw, 12px);
+            font-weight: 600;
+            color: #fc5185;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            animation: flowUp 2s ease-in-out infinite;
+            opacity: 0.9;
+        }
+
+        .data-item:nth-child(1) { animation-delay: 0s; }
+        .data-item:nth-child(2) { animation-delay: 0.3s; }
+        .data-item:nth-child(3) { animation-delay: 0.6s; }
+
+        .flow-arrow {
+            font-size: clamp(40px, 5vw, 60px);
+            color: #f3f3f3;
+            font-weight: bold;
+            animation: arrowPulse 1.5s ease-in-out infinite;
+        }
+
+        .taxonomy-tree {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: clamp(300px, 35vw, 450px);
+        }
+
+        .tree-root {
+            background: linear-gradient(135deg, rgba(63,193,201, 0.3), rgba(63,193,201, 0.2));
+            border: 4px solid rgb(63,193,201);
+            border-radius: clamp(20px, 2.5vw, 28px);
+            padding: clamp(15px, 2vw, 20px) clamp(20px, 3vw, 30px);
+            text-align: center;
+            box-shadow: 0 12px 48px rgba(63,193,201, 0.4);
+            backdrop-filter: blur(10px);
+            margin-bottom: clamp(20px, 3vh, 30px);
+        }
+
+        .tree-root .label {
+            font-size: clamp(20px, 2.8vw, 28px);
+            font-weight: 800;
+            color: rgb(63,193,201);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tree-branches {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: clamp(15px, 2vw, 20px);
+            width: 100%;
+        }
+
+        .category-branch {
+            background: rgba(63,193,201, 0.15);
+            border: 2px solid rgb(63,193,201);
+            border-radius: clamp(16px, 2vw, 20px);
+            padding: clamp(12px, 1.5vw, 16px);
+            text-align: center;
+            box-shadow: 0 6px 24px rgba(63,193,201, 0.2);
+            backdrop-filter: blur(5px);
+            animation: branchGlow 3s ease-in-out infinite;
+        }
+
+        .category-branch:nth-child(1) { animation-delay: 0s; }
+        .category-branch:nth-child(2) { animation-delay: 0.5s; }
+        .category-branch:nth-child(3) { animation-delay: 1s; }
+        .category-branch:nth-child(4) { animation-delay: 1.5s; }
+
+        .category-branch .icon {
+            font-size: clamp(20px, 2.5vw, 28px);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .category-branch .label {
+            font-size: clamp(10px, 1.2vw, 12px);
+            font-weight: 600;
+            color: rgb(63,193,201);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tree-connections {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .connection-line {
+            stroke: rgba(63,193,201, 0.4);
+            stroke-width: 3;
+            stroke-dasharray: 10,5;
+            animation: dashMove 2s linear infinite;
+        }
+
+        .overlay-caption {
+            text-align: center;
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            background: linear-gradient(45deg, rgb(63,193,201), #fc5185);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        @keyframes flowUp {
+            0%, 100% { transform: translateY(0px) scale(1); opacity: 0.9; }
+            50% { transform: translateY(-5px) scale(1.05); opacity: 1; }
+        }
+
+        @keyframes arrowPulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        @keyframes branchGlow {
+            0%, 100% { box-shadow: 0 6px 24px rgba(63,193,201, 0.2); }
+            50% { box-shadow: 0 8px 32px rgba(63,193,201, 0.4); }
+        }
+
+        @keyframes dashMove {
+            0% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: 30; }
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .diagram-container {
+                flex-direction: column;
+                gap: clamp(30px, 5vh, 50px);
+            }
+            
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <span class="iab">IAB taxonomy</span><br>
+            <span class="equals">=</span> <span class="common">common</span><br>
+            <span class="language">language</span>
+        </div>
+
+        <div class="visual-section">
+            <div class="diagram-container">
+                <div class="ai-pipeline">
+                    <div class="ai-box">
+                        <div class="label">AI pipeline</div>
+                        <div class="icon">⚡</div>
+                    </div>
+                    
+                    <div class="data-flow">
+                        <div class="data-item">📝 text</div>
+                        <div class="data-item">🎬 video</div>
+                        <div class="data-item">🎧 audio</div>
+                    </div>
+                </div>
+
+                <div class="flow-arrow">→</div>
+
+                <div class="taxonomy-tree">
+                    <div class="tree-root">
+                        <div class="label">IAB taxonomy</div>
+                    </div>
+                    
+                    <svg width="100%" height="40" class="tree-connections">
+                        <line x1="50%" y1="0" x2="25%" y2="40" class="connection-line"/>
+                        <line x1="50%" y1="0" x2="50%" y2="40" class="connection-line"/>
+                        <line x1="50%" y1="0" x2="75%" y2="40" class="connection-line"/>
+                    </svg>
+                    
+                    <div class="tree-branches">
+                        <div class="category-branch">
+                            <span class="icon">🏠</span>
+                            <div class="label">home & garden</div>
+                        </div>
+                        <div class="category-branch">
+                            <span class="icon">💻</span>
+                            <div class="label">technology</div>
+                        </div>
+                        <div class="category-branch">
+                            <span class="icon">🚗</span>
+                            <div class="label">automotive</div>
+                        </div>
+                        <div class="category-branch">
+                            <span class="icon">💰</span>
+                            <div class="label">finance</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="overlay-caption">
+            standardized across platforms
+        </div>
+    </div>
+</body>
+</html>

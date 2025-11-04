@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Structure Unlocks Scale</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #262b32;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #f3f3f3;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            min-height: 800px;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 5vh 5vw;
+            box-sizing: border-box;
+        }
+
+        .title {
+            text-align: center;
+            font-size: clamp(48px, 8vw, 84px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: clamp(60px, 10vh, 120px);
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .title .structure {
+            color: rgb(63,193,201);
+        }
+
+        .title .unlocks {
+            color: #f3f3f3;
+        }
+
+        .title .scale {
+            color: #fc5185;
+        }
+
+        .visual-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: clamp(60px, 10vh, 120px);
+            width: 100%;
+            top: 6rem;
+        }
+
+        .scale-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(40px, 6vw, 80px);
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .taxonomy-hub {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .taxonomy-box {
+            background: linear-gradient(135deg, rgba(63,193,201, 0.3), rgba(63,193,201, 0.2));
+            border: 4px solid rgb(63,193,201);
+            border-radius: clamp(24px, 3vw, 32px);
+            padding: clamp(25px, 4vw, 40px);
+            text-align: center;
+            box-shadow: 0 15px 60px rgba(63,193,201, 0.4);
+            backdrop-filter: blur(15px);
+            position: relative;
+            animation: hubPulse 3s ease-in-out infinite;
+        }
+
+        .taxonomy-box .label {
+            font-size: clamp(24px, 3.5vw, 36px);
+            font-weight: 800;
+            color: rgb(63,193,201);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .taxonomy-box .icon {
+            font-size: clamp(48px, 6vw, 72px);
+            color: #f3f3f3;
+            animation: iconSpin 4s linear infinite;
+        }
+
+        .benefits-list {
+            position: absolute;
+            top: -12rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: clamp(15px, 2vw, 25px);
+            flex-wrap: wrap;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .benefit-tag {
+            background: rgba(252, 81, 133, 0.2);
+            border: 2px solid #fc5185;
+            border-radius: clamp(12px, 1.5vw, 16px);
+            padding: clamp(8px, 1vw, 12px) clamp(12px, 1.5vw, 16px);
+            font-size: clamp(10px, 1.2vw, 12px);
+            font-weight: 600;
+            color: #fc5185;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            animation: tagFloat 2.5s ease-in-out infinite;
+            backdrop-filter: blur(5px);
+        }
+
+        .benefit-tag:nth-child(1) { animation-delay: 0s; }
+        .benefit-tag:nth-child(2) { animation-delay: 0.5s; }
+        .benefit-tag:nth-child(3) { animation-delay: 1s; }
+
+        .platforms-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: clamp(20px, 3vw, 30px);
+            max-width: clamp(300px, 35vw, 400px);
+        }
+
+        .platform-item {
+            background: linear-gradient(135deg, rgba(252, 81, 133, 0.2), rgba(252, 81, 133, 0.1));
+            border: 3px solid #fc5185;
+            border-radius: clamp(20px, 2.5vw, 28px);
+            padding: clamp(20px, 3vw, 30px);
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(252, 81, 133, 0.3);
+            backdrop-filter: blur(10px);
+            animation: platformGlow 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        .platform-item:nth-child(1) { animation-delay: 0s; }
+        .platform-item:nth-child(2) { animation-delay: 0.75s; }
+        .platform-item:nth-child(3) { animation-delay: 1.5s; }
+        .platform-item:nth-child(4) { animation-delay: 2.25s; }
+
+        .platform-item .icon {
+            font-size: clamp(32px, 4vw, 48px);
+            margin-bottom: 10px;
+            display: block;
+            animation: platformBounce 2s ease-in-out infinite;
+        }
+
+        .platform-item .label {
+            font-size: clamp(12px, 1.5vw, 14px);
+            font-weight: 700;
+            color: #fc5185;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .flow-arrows {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+        }
+
+        .arrow-line {
+            stroke: rgba(243, 243, 243, 0.6);
+            stroke-width: 4;
+            stroke-dasharray: 15,10;
+            animation: arrowFlow 2s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(243, 243, 243, 0.3));
+        }
+
+        .arrow-head {
+            fill: rgba(243, 243, 243, 0.8);
+            animation: arrowPulse 1.5s ease-in-out infinite;
+        }
+
+        .overlay-caption {
+            text-align: center;
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            background: linear-gradient(45deg, rgb(63,193,201), #fc5185);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @keyframes hubPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 15px 60px rgba(63,193,201, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 20px 80px rgba(63,193,201, 0.6); }
+        }
+
+        @keyframes iconSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes tagFloat {
+            0%, 100% { transform: translateY(0px); opacity: 0.9; }
+            50% { transform: translateY(-8px); opacity: 1; }
+        }
+
+        @keyframes platformGlow {
+            0%, 100% { box-shadow: 0 10px 40px rgba(252, 81, 133, 0.3); }
+            50% { box-shadow: 0 15px 60px rgba(252, 81, 133, 0.5); }
+        }
+
+        @keyframes platformBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes arrowFlow {
+            0% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: 50; }
+        }
+
+        @keyframes arrowPulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .scale-diagram {
+                flex-direction: column;
+                gap: clamp(40px, 8vh, 60px);
+            }
+            
+            .benefits-list {
+                position: static;
+                transform: none;
+                margin-bottom: clamp(20px, 4vh, 30px);
+            }
+            
+            .platforms-grid {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <span class="structure">structure</span>
+            <span class="unlocks">unlocks</span>
+            <span class="scale">scale</span>
+        </div>
+
+        <div class="visual-section">
+            <div class="scale-diagram">
+                <div class="taxonomy-hub">
+                    <div class="benefits-list">
+                        <div class="benefit-tag">relevance</div>
+                        <div class="benefit-tag">safety</div>
+                        <div class="benefit-tag">comparability</div>
+                    </div>
+                    
+                    <div class="taxonomy-box">
+                        <div class="label">taxonomy</div>
+                        <div class="icon">🏗️</div>
+                    </div>
+                </div>
+
+                <svg width="200" height="200" class="flow-arrows">
+                    <!-- Top-right arrow to CTV -->
+                    <path d="M 100 100 L 150 60" class="arrow-line"/>
+                    <polygon points="150,60 145,65 155,65" class="arrow-head"/>
+                    
+                    <!-- Bottom-right arrow to Web -->
+                    <path d="M 100 100 L 150 140" class="arrow-line"/>
+                    <polygon points="150,140 145,135 155,135" class="arrow-head"/>
+                    
+                    <!-- Bottom-left arrow to Social -->
+                    <path d="M 100 100 L 50 140" class="arrow-line"/>
+                    <polygon points="50,140 45,135 55,135" class="arrow-head"/>
+                    
+                    <!-- Top-left arrow to DOOH -->
+                    <path d="M 100 100 L 50 60" class="arrow-line"/>
+                    <polygon points="50,60 45,65 55,65" class="arrow-head"/>
+                </svg>
+
+                <div class="platforms-grid">
+                    <div class="platform-item">
+                        <span class="icon">📺</span>
+                        <div class="label">CTV</div>
+                    </div>
+                    <div class="platform-item">
+                        <span class="icon">🌐</span>
+                        <div class="label">web</div>
+                    </div>
+                    <div class="platform-item">
+                        <span class="icon">📱</span>
+                        <div class="label">social</div>
+                    </div>
+                    <div class="platform-item">
+                        <span class="icon">🏢</span>
+                        <div class="label">DOOH</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="overlay-caption">
+            AI scales with taxonomy
+        </div>
+    </div>
+</body>
+</html>

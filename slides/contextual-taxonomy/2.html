@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raw AI Outputs = Chaos</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #262b32;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #f3f3f3;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            min-height: 800px;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 5vh 5vw;
+            box-sizing: border-box;
+        }
+
+        .title {
+            text-align: center;
+            font-size: clamp(48px, 8vw, 84px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: clamp(60px, 10vh, 120px);
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .title .raw {
+            color: #fc5185;
+        }
+
+        .title .ai {
+            color: rgb(63,193,201);
+        }
+
+        .title .equals {
+            color: #f3f3f3;
+        }
+
+        .title .chaos {
+            color: #fc5185;
+        }
+
+        .visual-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: clamp(60px, 10vh, 120px);
+            width: 100%;
+        }
+
+        .ai-model-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(30px, 5vw, 60px);
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .ai-model-box {
+            background: linear-gradient(135deg, rgba(63,193,201, 0.2), rgba(63,193,201, 0.1));
+            border: 4px solid rgb(63,193,201);
+            border-radius: 32px;
+            padding: clamp(20px, 3vw, 40px);
+            text-align: center;
+            box-shadow: 0 12px 48px rgba(63,193,201, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            min-width: clamp(150px, 15vw, 200px);
+        }
+
+        .ai-model-box .label {
+            font-size: clamp(20px, 3vw, 32px);
+            font-weight: 800;
+            color: rgb(63,193,201);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .ai-model-box .icon {
+            font-size: clamp(40px, 6vw, 64px);
+            color: #f3f3f3;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .output-arrow {
+            font-size: clamp(48px, 7vw, 72px);
+            color: #f3f3f3;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        .chaos-output {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: clamp(300px, 35vh, 400px);
+            min-width: clamp(300px, 35vw, 400px);
+        }
+
+        .jumbled-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: clamp(10px, 1.5vw, 15px);
+            transform: rotate(-3deg);
+            animation: chaosFloat 4s ease-in-out infinite;
+            max-width: 100%;
+        }
+
+        .content-item {
+            background: rgba(252, 81, 133, 0.1);
+            border: 2px solid #fc5185;
+            border-radius: 16px;
+            padding: clamp(8px, 1.5vw, 15px) clamp(5px, 1vw, 10px);
+            text-align: center;
+            font-size: clamp(10px, 1.2vw, 12px);
+            font-weight: 600;
+            color: #fc5185;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            animation: itemFloat 3s ease-in-out infinite;
+            opacity: 0.8;
+        }
+
+        .content-item:nth-child(1) { animation-delay: 0s; transform: rotate(5deg); }
+        .content-item:nth-child(2) { animation-delay: 0.3s; transform: rotate(-3deg); }
+        .content-item:nth-child(3) { animation-delay: 0.6s; transform: rotate(7deg); }
+        .content-item:nth-child(4) { animation-delay: 0.9s; transform: rotate(-5deg); }
+        .content-item:nth-child(5) { animation-delay: 1.2s; transform: rotate(4deg); }
+        .content-item:nth-child(6) { animation-delay: 1.5s; transform: rotate(-6deg); }
+        .content-item:nth-child(7) { animation-delay: 1.8s; transform: rotate(3deg); }
+        .content-item:nth-child(8) { animation-delay: 2.1s; transform: rotate(-4deg); }
+        .content-item:nth-child(9) { animation-delay: 2.4s; transform: rotate(6deg); }
+        .content-item:nth-child(10) { animation-delay: 2.7s; transform: rotate(-2deg); }
+        .content-item:nth-child(11) { animation-delay: 3s; transform: rotate(8deg); }
+        .content-item:nth-child(12) { animation-delay: 3.3s; transform: rotate(-7deg); }
+
+        .overlay-caption {
+            text-align: center;
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            color: #fc5185;
+        }
+
+        .overlay-caption .unstructured {
+            color: #fc5185;
+        }
+
+        .overlay-caption .not-equal {
+            color: #f3f3f3;
+            margin: 0 clamp(10px, 2vw, 20px);
+        }
+
+        .overlay-caption .actionable {
+            color: rgb(63,193,201);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        @keyframes chaosFloat {
+            0%, 100% { transform: rotate(-3deg) translateY(0px); }
+            25% { transform: rotate(-1deg) translateY(-5px); }
+            50% { transform: rotate(-5deg) translateY(3px); }
+            75% { transform: rotate(-2deg) translateY(-3px); }
+        }
+
+        @keyframes itemFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .chaos-label {
+            position: absolute;
+            top: clamp(-40px, -5vh, -50px);
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fc5185;
+            font-size: clamp(18px, 2.5vw, 28px);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <span class="raw">raw</span> <span class="ai">AI</span> <span class="equals">outputs</span><br>
+            <span class="equals">=</span> <span class="chaos">chaos</span>
+        </div>
+
+        <div class="visual-section">
+            <div class="ai-model-container">
+                <div class="ai-model-box">
+                    <div class="label">AI model</div>
+                    <div class="icon">🧠</div>
+                </div>
+
+                <div class="output-arrow">→</div>
+
+                <div class="chaos-output">
+                    <div class="chaos-label">no hierarchy</div>
+                    <div class="jumbled-content">
+                        <div class="content-item">sports</div>
+                        <div class="content-item">📱 tech</div>
+                        <div class="content-item">cooking</div>
+                        <div class="content-item">🎵 music</div>
+                        <div class="content-item">travel</div>
+                        <div class="content-item">🏠 home</div>
+                        <div class="content-item">finance</div>
+                        <div class="content-item">🚗 auto</div>
+                        <div class="content-item">health</div>
+                        <div class="content-item">📚 books</div>
+                        <div class="content-item">fashion</div>
+                        <div class="content-item">🎮 games</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="overlay-caption">
+            <span class="unstructured">unstructured</span><span class="not-equal">≠</span><span class="actionable">actionable</span>
+        </div>
+    </div>
+</body>
+</html>
